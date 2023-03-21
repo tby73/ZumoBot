@@ -24,7 +24,7 @@ def InitUltrasonic():
     GPIO.setup(GPIO_TRIGGER_2, GPIO.OUT)
     GPIO.setup(GPIO_ECHO_2, GPIO.IN)
 
-def GetDisanceCM(trigger, echo):
+def GetDistanceCM(trigger, echo):
     # send pulse
     GPIO.output(trigger, True)
 
@@ -53,10 +53,10 @@ def main():
     InitUltrasonic()
 
     while True:
-        distance_cm_sensor1 = GetDisanceCM(GPIO_TRIGGER_1, GPIO_ECHO_1)
+        distance_cm_sensor1 = GetDistanceCM(GPIO_TRIGGER_1, GPIO_ECHO_1)
         print(f"Gemossene Distanz(Sensor 1) [cm]: {distance_cm_sensor1}")
 
-        distance_cm_sensor2 = GetDisanceCM(GPIO_TRIGGER_2, GPIO_ECHO_2)
+        distance_cm_sensor2 = GetDistanceCM(GPIO_TRIGGER_2, GPIO_ECHO_2)
         print(f"Gemossene Distanz(Sensor 2) [cm]: {distance_cm_sensor2}")
 
 if __name__ == "__main__":
