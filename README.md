@@ -14,3 +14,5 @@ Modules:
   <li>Distance and Collision avoidance from the side: Ultrasonic Sensors x 7</li>
   <li>Motors: 2x DC-Motors + Driver</li>
 </ul>
+<br>
+All modules will be placed onto a Motherboard, which will features all Pins and Plugs for the modules above
