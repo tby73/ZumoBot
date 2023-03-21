@@ -8,9 +8,9 @@ of the marked area. The vehicle features a Intel RealSense Depth Cam, which will
 <br>
 Modules: 
 <ul>
-  Base: Raspberry Pi 4
-  Camera: Intel RealSense L515 or D435
-  Edge/Ring avoidance: IR-Sensor
-  Distance and Collision avoidance from the side: Ultrasonic Sensors x 7
-  Motors: 2x DC-Motors + Driver
+  <li>Base: Raspberry Pi 4</li>
+  <li>Camera: Intel RealSense L515 or D435</li>
+  <li>Edge/Ring avoidance: IR-Sensor</li>
+  <li>Distance and Collision avoidance from the side: Ultrasonic Sensors x 7</li>
+  <li>Motors: 2x DC-Motors + Driver</li>
 </ul>
