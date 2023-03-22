@@ -13,6 +13,8 @@ GPIO_ECHO_2 = 24
 SONIC_SPEED_CM = 34300
 MEASURE_DELAY = 0.00001
 
+COLLISION_THRESHOLD = 10
+
 def InitUltrasonic():
     GPIO.setmode(GPIO.BCM)
 
@@ -58,6 +60,11 @@ def main():
 
         distance_cm_sensor2 = GetDistanceCM(GPIO_TRIGGER_2, GPIO_ECHO_2)
         print(f"Gemossene Distanz(Sensor 2) [cm]: {distance_cm_sensor2}")
+
+        # TODO: fusion with IR-Sensor to check if the vehicle isnt too 
+        if distance_cm_sensor1 <= COLLISION_THRESHOLD or distance_cm_sensor2 <= COLLISION_THRESHOLD:
+            print("AVOID, driving forward")
+
 
 if __name__ == "__main__":
     main()
