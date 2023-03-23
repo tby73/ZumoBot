@@ -15,4 +15,4 @@ Modules:
   <li>Motors: 2x DC-Motors + Driver</li>
 </ul>
 <br>
-All modules will be placed onto a Motherboard, which will features all Pins and Plugs for the modules above
+All modules will be placed onto a Motherboard, which will feature all Pins and Plugs for the modules above
