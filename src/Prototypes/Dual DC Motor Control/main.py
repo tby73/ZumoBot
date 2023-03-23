@@ -56,7 +56,7 @@ def SetMotorSpeed(motor, speed):
 
     # init PWM DC2
     pwm_DC2_A = GPIO.PWM(DC2_INPUT_A, 50)
-    pwm_DC2_B = GPIO.PWM(DC1_INPUT_B, 50)
+    pwm_DC2_B = GPIO.PWM(DC2_INPUT_B, 50)
 
     if motor == 1:
         # move forward
