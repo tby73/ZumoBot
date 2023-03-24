@@ -123,8 +123,11 @@ def GetDistanceCM(trigger, echo):
     return distance
 
 def main():
+    safe_drive = True
+
     while True:
-        SetMotorMovement(120, 120)
+        if safe_drive:
+            SetMotorMovement(120, 120)
 
         # read from Ultrasonic sensors
         distance_sensor1 = GetDistanceCM(GPIO_TRIGGER_1, GPIO_ECHO_1)
@@ -138,21 +141,20 @@ def main():
         
         # if ring edge detected
         if GPIO.input(IR_SENSOR1_DOUT) or GPIO.input(IR_SENSOR2_DOUT):
+            safe_drive = False
+
             SetMotorMovement(70, -70)
             time.sleep(1.5)
 
+            safe_drive = True
+
         # check for collision via ultrasonics
         if ultrasonic_collision:
+            safe_drive = False
+
             SetMotorMovement(-120, -120)
             time.sleep(1)
             SetMotorMovement(70, -70)
 
-            if GPIO.input(IR_SENSOR1_DOUT) or GPIO.input(IR_SENSOR2_DOUT):
-                SetMotorMovement(70, -70)
-                time.sleep(1.5)
-
-            time.sleep(1.5)
-
-if __name__ == "__main__":
-    main()
+            safe_drive = True
 
