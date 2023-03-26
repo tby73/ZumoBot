@@ -21,9 +21,17 @@ def ProcessDepthMap(depth_data):
     # apply depth colormap design on the depth image
     return cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), colormap=cv2.COLORMAP_JET)
 
-def main():
-    InitLIDARCam()
+def CreatePointcloud3D(depth_data):
+    # Init PointCloud Generator instance
+    pc = rs.pointcloud()
     
+    # calculate Pointcloud points and generate cloud
+    pc_points = pc.calculate(depth_data)
+    pointcloud = np.asanyarray(pc_points.get_vertices()).view(np.float32).reshape(-1, 3) 
+
+    return pointcloud
+
+def main():
     try:
         while True:
             # load camera data, return depth
@@ -33,14 +41,18 @@ def main():
             # generate depth map
             depth_map = ProcessDepthMap(depth_data)
 
+            # generate Pointcloud
+            pointcloud = CreatePointcloud3D(depth_data)
+
             # display
             cv2.imshow("L515 Depth Map", depth_map)
-            cv2.waitKey(1)
+            cv2.imshow("L515 Depth Pointcloud", pointcloud)
+            
+            if cv2.waitKey(20) & 0xff == ord("q"):
+                break
     finally:
         pipeline.stop()
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
-
-
