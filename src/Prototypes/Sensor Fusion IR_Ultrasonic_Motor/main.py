@@ -69,22 +69,18 @@ def SetMotorLogic(motor_index, speed):
     pwm_DC2_A = GPIO.PWM(DC2_INPUT_A, 50)
     pwm_DC2_B = GPIO.PWM(DC2_INPUT_B, 50)
 
-    # setup logic for motor 1
     if motor_index == 1: 
-        # positive speeds => forward mode (1 0)
         if speed > 0:
             GPIO.output(DC1_INPUT_A, True)
             GPIO.output(DC1_INPUT_B, False)
-        # negative speeds => backward mode (0 0)
+
         else:
             GPIO.output(DC1_INPUT_A, False)
             GPIO.output(DC1_INPUT_B, True)
-        
-        # set speed to DC1
+
         pwm_DC1_A.start(np.abs(speed))
         pwm_DC1_B.start(np.abs(speed))
 
-    # same logic for motor 2
     if motor_index == 2:
         if speed > 0:
             GPIO.output(DC2_INPUT_A, True)
@@ -161,6 +157,8 @@ def main():
             SetMotorMovement(70, -70)
 
             safe_drive = True
-            
+
+
 if __name__ == "__main__":
     main()
+
