@@ -22,6 +22,8 @@ def ProcessDepthMap(depth_data):
     return cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), colormap=cv2.COLORMAP_JET)
 
 def main():
+    InitLIDARCam()
+    
     try:
         while True:
             # load camera data, return depth
