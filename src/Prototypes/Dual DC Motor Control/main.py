@@ -144,7 +144,9 @@ def main():
     while True: 
         RoundMovement()
 
+        if GPIO.input(2): Break()
+        if GPIO.input(11): Shutdown()
+
 if __name__ == "__main__":
     main()
-
 
