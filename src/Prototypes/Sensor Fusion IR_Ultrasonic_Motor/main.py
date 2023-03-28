@@ -134,31 +134,33 @@ def main():
         distance_sensor2 = GetDistanceCM(GPIO_TRIGGER_2, GPIO_ECHO_2)
         distance_sensor3 = GetDistanceCM(GPIO_TRIGGER_3, GPIO_ECHO_3)
 
-        # ultrasonic collision handler
-        ultrasonic_collision = (distance_sensor1 <= COLLISION_AVOIDANCE_THRESHOLD or 
-                                distance_sensor2 <= COLLISION_AVOIDANCE_THRESHOLD or 
-                                distance_sensor3 <= COLLISION_AVOIDANCE_THRESHOLD)
-        
-        # if ring edge detected
-        if GPIO.input(IR_SENSOR1_DOUT) or GPIO.input(IR_SENSOR2_DOUT):
-            safe_drive = False
-
+        # Sensor 1 collision alert: turn 90 deg to right
+        if distance_sensor1 <= COLLISION_AVOIDANCE_THRESHOLD:
+            save_drive = False
             SetMotorMovement(70, -70)
             time.sleep(1.5)
+            save_drive = True
 
-            safe_drive = True
-
-        # check for collision via ultrasonics
-        if ultrasonic_collision:
-            safe_drive = False
-
-            SetMotorMovement(-120, -120)
-            time.sleep(1)
+        # Sensor 2 collision alert: turn 180 deg 
+        if distance_sensor2 <= COLLISION_AVOIDANCE_THRESHOLD:
+            save_drive = False 
             SetMotorMovement(70, -70)
+            time.sleep(3)
+            save_drive = True
 
-            safe_drive = True
+        # Sensor 3 collision alert: turn 90 deg to left
+        if distance_sensor3 <= COLLISION_AVOIDANCE_THRESHOLD:
+            save_drive = False 
+            SetMotorMovement(-70, 70)
+            time.sleep(1.5)
+            save_drive = True
+
+        if GPIO.input(IR_SENSOR1_DOUT) or GPIO.input(IR_SENSOR2_DOUT):
+            save_drive = False 
+            SetMotorMovement(-70, 70)
+            time.sleep(3)
+            save_drive = True
 
 
 if __name__ == "__main__":
     main()
-
