@@ -51,24 +51,43 @@ def GetDistanceCM(trigger, echo):
 
     return distance
 
-def PlotDistance(distances: list, time):
-    plt.plot(time, distances)
-    plt.ylabel("Distance [cm]")
-    plt.pause(0.5)
+def PlotDistance(distance1, distance2):
+    fig, ax = plt.subplots()
+
+    ax.set_xlim(0, 2 * np.pi)
+    ax.set_ylim(-1, 1)
+
+    line_dist1, = ax.plot([], [], label="Sensor 1")
+    line_dist2, = ax.plot([], [], label="Sensor 2")
+
+    ax.legend(loc="upper right")
+
+    def UpdatePlot(frame):
+        x = np.linspace(0, 2 * np.pi, 1000)
+
+        line_dist1.set_data(x, distance1)
+        line_dist2.set_data(x, distance2)
+
+        return line_dist1, line_dist2
+
+    animation = FuncAnimation(fig, UpdatePlot, frames=np.linspace(0, 2 * np.pi, 200), blit=True, interval=10)
+
     plt.show()
+
 
 def main():
     InitUltrasonic()
-    timespace = []
 
     while True:
+        # get distances from sensor
         distance_cm_sensor1 = GetDistanceCM(GPIO_TRIGGER_1, GPIO_ECHO_1)
         print(f"Gemossene Distanz(Sensor 1) [cm]: {distance_cm_sensor1}")
 
         distance_cm_sensor2 = GetDistanceCM(GPIO_TRIGGER_2, GPIO_ECHO_2)
         print(f"Gemossene Distanz(Sensor 2) [cm]: {distance_cm_sensor2}")
 
-        PlotDistance([distance_cm_sensor1, distance_cm_sensor2], np.linspace(0, 15, 20))
+        # plot both measurements
+        PlotDistance(distance_cm_sensor1, distance_cm_sensor2)
 
         # TODO: fusion with IR-Sensor to check if the vehicle isnt too 
         if distance_cm_sensor1 <= COLLISION_THRESHOLD or distance_cm_sensor2 <= COLLISION_THRESHOLD:
@@ -77,6 +96,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
