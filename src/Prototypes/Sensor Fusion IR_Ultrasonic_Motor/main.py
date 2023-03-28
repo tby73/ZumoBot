@@ -154,7 +154,8 @@ def main():
             SetMotorMovement(-70, 70)
             time.sleep(1.5)
             save_drive = True
-
+        
+        # Edge avoidance from both IR-Sensors
         if GPIO.input(IR_SENSOR1_DOUT) or GPIO.input(IR_SENSOR2_DOUT):
             save_drive = False 
             SetMotorMovement(-70, 70)
