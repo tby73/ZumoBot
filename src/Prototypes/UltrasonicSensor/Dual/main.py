@@ -54,33 +54,46 @@ def GetDistanceCM(trigger, echo):
 
 def PlotDistance(distance1, distance2):
     # setup plot figure
-    fig, ax = plt.subplots()
+    fig = plt.figure()
 
-    ax.set_xlim(0, 2 * np.pi)
-    ax.set_ylim(4, 400) # sensor range => (4 cm, 4 m)
+    # create subplot
+    ax = fig.add_subplot(1, 1, 1)
 
-    # create line objects for both distances
-    line_dist1, = ax.plot([], [], label="Sensor 1")
-    line_dist2, = ax.plot([], [], label="Sensor 2")
+    # placeholder vectors
+    xs = []
+    distances_1 = []
+    distances_2 = []
 
-    ax.legend(loc="upper right")
+    def animate(i, xs, distances_1, distances_2):
+        # get distances
+        distance1, distance2 = int(distance1), int(distance2)
 
-    def UpdatePlot(frame):
-        x = np.linspace(0, 2 * np.pi, 1000)
+        # Add x and measured distances to lists
+        xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+        distances_1.append(distance1)
+        distances_2.append(distance2)
 
-        # plot data
-        line_dist1.set_data(x, distance1)
-        line_dist2.set_data(x, distance2)
+        # Limit x and y (y => (4 cm to 4 m))
+        xs = xs[-20:]
+        ax.set_ylim(4, 400)
 
-        return line_dist1, line_dist2
+        # Draw x and y lists
+        ax.clear()
+        ax.plot(xs, distances_1)
+        ax.plot(xs, distances_2)
 
-    # init animation
-    animation = FuncAnimation(fig, UpdatePlot, frames=np.linspace(0, 2 * np.pi, 200), blit=True, interval=10)
+        # Format plot
+        plt.xticks(rotation=45, ha='right')
+        plt.subplots_adjust(bottom=0.30)
 
+        plt.title('Ultrasonic Measurements over Time')
+        plt.ylabel('Distance [cm]')
+
+    # init live animation
+    animation = FuncAnimation(fig, animate, fargs=(xs, distances_1, distances_2), interval=1000)
+    
     # display
     plt.show()
-
-
 
 def main():
     InitUltrasonic()
@@ -103,3 +116,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
