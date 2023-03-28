@@ -110,50 +110,41 @@ def Break():
 def RoundMovement():
 # move forward (POS1 -> POS2)
     SetMotorMovement(70, 70)
+    time.sleep(1)
 
     # turn left (POS2_TURN_LEFT)
     SetMotorMovement(-70, 70)
+    time.sleep(0.5)
 
     # move forward (POS2 -> POS3)
     SetMotorMovement(70, 70)
+    time.sleep(1)
 
     # turn left (POS3_TURN_LEFT)
     SetMotorMovement(-70, 70)
+    time.sleep(0.5)
 
     # move forward (POS3 -> POS4)
     SetMotorMovement(70, 70)
+    time.sleep(1)
 
     # turn left (POS4_TURN_LEFT)
     SetMotorMovement(-70, 70)
+    time.sleep(0.5)
 
     # move forward (POS4 -> POS1)
     SetMotorMovement(70, 70)
+    time.sleep(1)
 
     # turn left (POS1_TURN_LEFT)    
     SetMotorMovement(-70, 70)    
-
-    time.sleep(0.2)
+    time.sleep(0.5)
 
 def main():
     while True: 
         RoundMovement()
 
-        # Shutdown motors if GPIO 12 button is pressed
-        if GPIO.input(12):
-            Shutdown()
-            break
-        
-        # break if button GPIO 16 is pressed
-        if GPIO.input(16):
-            Break()
-
-        if GPIO.input(3):
-            RoundMovement()
-
 if __name__ == "__main__":
     main()
-    
-
-
 
 
