@@ -56,7 +56,7 @@ def PlotDistance(distance1, distance2):
     fig, ax = plt.subplots()
 
     ax.set_xlim(0, 2 * np.pi)
-    ax.set_ylim(-1, 1)
+    ax.set_ylim(4, 400) # sensor range => (4 cm, 4 m)
 
     # create line objects for both distances
     line_dist1, = ax.plot([], [], label="Sensor 1")
