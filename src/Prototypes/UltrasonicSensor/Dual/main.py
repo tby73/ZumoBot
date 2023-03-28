@@ -51,8 +51,15 @@ def GetDistanceCM(trigger, echo):
 
     return distance
 
+def PlotDistance(distances: list, time):
+    plt.plot(time, distances)
+    plt.ylabel("Distance [cm]")
+    plt.pause(0.5)
+    plt.show()
+
 def main():
     InitUltrasonic()
+    timespace = []
 
     while True:
         distance_cm_sensor1 = GetDistanceCM(GPIO_TRIGGER_1, GPIO_ECHO_1)
@@ -60,6 +67,8 @@ def main():
 
         distance_cm_sensor2 = GetDistanceCM(GPIO_TRIGGER_2, GPIO_ECHO_2)
         print(f"Gemossene Distanz(Sensor 2) [cm]: {distance_cm_sensor2}")
+
+        PlotDistance([distance_cm_sensor1, distance_cm_sensor2], np.linspace(0, 15, 20))
 
         # TODO: fusion with IR-Sensor to check if the vehicle isnt too 
         if distance_cm_sensor1 <= COLLISION_THRESHOLD or distance_cm_sensor2 <= COLLISION_THRESHOLD:
