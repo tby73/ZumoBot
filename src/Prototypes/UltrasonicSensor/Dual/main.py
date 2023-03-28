@@ -64,7 +64,7 @@ def PlotDistance(distance1, distance2):
     distances_1 = []
     distances_2 = []
 
-    def animate(i, xs, distances_1, distances_2):
+    def Animate(i, xs, distances_1, distances_2):
         # get distances
         distance1, distance2 = int(distance1), int(distance2)
 
@@ -116,4 +116,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
