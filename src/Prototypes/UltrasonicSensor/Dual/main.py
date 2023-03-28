@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import numpy as np
 
 # GPIO Ultrasonic 1
 GPIO_TRIGGER_1 = 5
@@ -102,9 +103,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
