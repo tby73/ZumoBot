@@ -136,31 +136,30 @@ def main():
 
         # Sensor 1 collision alert: turn 90 deg to right
         if distance_sensor1 <= COLLISION_AVOIDANCE_THRESHOLD:
-            save_drive = False
+            safe_drive = False
             SetMotorMovement(70, -70)
             time.sleep(1.5)
-            save_drive = True
+            safe_drive = True
 
         # Sensor 2 collision alert: turn 180 deg 
         if distance_sensor2 <= COLLISION_AVOIDANCE_THRESHOLD:
-            save_drive = False 
+            safe_drive = False 
             SetMotorMovement(70, -70)
             time.sleep(3)
-            save_drive = True
+            safe_drive = True
 
         # Sensor 3 collision alert: turn 90 deg to left
         if distance_sensor3 <= COLLISION_AVOIDANCE_THRESHOLD:
-            save_drive = False 
+            safe_drive = False 
             SetMotorMovement(-70, 70)
             time.sleep(1.5)
-            save_drive = True
-        
-        # Edge avoidance from both IR-Sensors
+            safe_drive = True
+
         if GPIO.input(IR_SENSOR1_DOUT) or GPIO.input(IR_SENSOR2_DOUT):
-            save_drive = False 
+            safe_drive = False 
             SetMotorMovement(-70, 70)
             time.sleep(3)
-            save_drive = True
+            safe_drive = True
 
 
 if __name__ == "__main__":
