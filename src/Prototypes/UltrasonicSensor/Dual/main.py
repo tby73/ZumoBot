@@ -1,6 +1,10 @@
 import RPi.GPIO as GPIO
 import time
+import datetime as dt
+import matplotlib.pyplot as plt
 import numpy as np
+
+from matplotlib.animation import FuncAnimation
 
 # GPIO Ultrasonic 1
 GPIO_TRIGGER_1 = 5
@@ -52,6 +56,7 @@ def GetDistanceCM(trigger, echo):
 
     return distance
 
+
 def PlotDistance(distance1, distance2):
     # setup plot figure
     fig = plt.figure()
@@ -90,10 +95,10 @@ def PlotDistance(distance1, distance2):
         plt.ylabel('Distance [cm]')
 
     # init live animation
-    animation = FuncAnimation(fig, animate, fargs=(xs, distances_1, distances_2), interval=1000)
+    animation = FuncAnimation(fig, Animate, fargs=(xs, distances_1, distances_2), interval=1000)
     
     # display
-    plt.show()
+    plt.show()    
 
 def main():
     InitUltrasonic()
@@ -116,3 +121,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
